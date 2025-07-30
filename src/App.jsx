@@ -29,7 +29,7 @@ const App = () => {
       }}
       >
       <label htmlFor="firstName">First Name:</label>
-      <input required type="text" value={name.firstName} onChange={(e)=>setName({firstName:e.target.value})}/>
+      <input required type="text" value={name.firstName} onChange={(e)=>setName({...name,firstName:e.target.value})}/>
       </div>
       <div
       style={{
@@ -37,8 +37,8 @@ const App = () => {
         gap:"5px"
       }}
       >
-      <label htmlFor="LastName">Last Name:</label>
-      <input required type="text" value={name.lastName} onChange={(e)=>setName({lastName:e.target.value})}/>
+      <label htmlFor="lastName">Last Name:</label>
+      <input required type="text" value={name.lastName} onChange={(e)=>setName({...name,lastName:e.target.value})}/>
       </div>
       <button>Submit</button>
     </form>
