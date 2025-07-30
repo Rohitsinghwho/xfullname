@@ -40,7 +40,7 @@ const App = () => {
       <label htmlFor="lastName">Last Name:</label>
       <input required type="text" value={name.lastName} onChange={(e)=>setName({...name,lastName:e.target.value})}/>
       </div>
-      <button>Submit</button>
+      <button type="submit">Submit</button>
     </form>
 
     {
