@@ -20,6 +20,7 @@ const App = () => {
 
     }}
     >
+    <h2>Full Name Display</h2>
     <form onSubmit={handleSubmit}>
       <div
       style={{
