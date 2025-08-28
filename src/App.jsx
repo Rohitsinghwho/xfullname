@@ -40,7 +40,7 @@ const App = () => {
       }}
       >
     
-      <label htmlFor="firstName">Username:</label>
+      <label htmlFor="username">Username:</label>
       <input 
       required 
       type="text" 
@@ -55,8 +55,8 @@ const App = () => {
         gap:"5px"
       }}
       >
-      <label htmlFor="lastName">Password:</label>
-      <input placeholder='password' required type="text" value={name.Password} onChange={(e)=>setName({...name,Password:e.target.value})}/>
+      <label htmlFor="password">Password:</label>
+      <input placeholder='password' required type="password" value={name.Password} onChange={(e)=>setName({...name,Password:e.target.value})}/>
       </div>
       <button type="submit">Submit</button>
     </form>
