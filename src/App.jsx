@@ -1,65 +1,55 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const App = () => {
-  const [name,setName]=useState({
-    Username:"",
-    Password:""
-  });
-  const [CorrectInfo,setCorrectInfo]=useState(null);
+  const [seconds,setSeconds]=useState(0);
+  const [isRunning,setIsRunning]=useState(false);
 
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    if(name.Username&&name.Password){
-      if(name.Username==="user"&&name.Password==="password"){
-        setCorrectInfo(true);
-      }else{
-        setCorrectInfo(false);
-      }
+  useEffect(()=>{
+    let timer;
+    if(isRunning){
+      timer=setInterval(() => {
+        setSeconds((prev)=>prev+1);
+      }, 1000);
     }
-    setName({Username:"",Password:""})
+    return ()=>clearInterval(timer);
+  },[isRunning])
 
+  const hanldeStartStop=()=>{
+    setIsRunning((prev)=>!prev);
+  }
+
+  const handleReset=()=>{
+    setIsRunning(false);
+    setSeconds(0);
+  }
+
+  const formatTime=(totalSeconds)=>{
+    const minutes=Math.floor(totalSeconds/60);
+    const secs=totalSeconds%60;
+    return `${minutes}:${secs.toString().padStart(2,"0")}`
   }
   return (
     <div
     style={{
       display:"flex",
-      gap:"20px",
-        flexDirection:"column"
-
+      flexDirection:"column",
+      gap:"15px",
+      alignItems:"center",
+      marginTop:"50px"
     }}
     >
 
-    <h2>Login Page</h2>
-      {CorrectInfo===true&&<p>Welcome, user!</p>}
-      {CorrectInfo===false&&<p>Invalid username or password</p>}
-    <form onSubmit={handleSubmit}>
-      <div
-      style={{
-        display:"flex",
-        gap:"5px",
-      }}
-      >
-    
-      <label htmlFor="user">Username:</label>
-      <input 
-      required 
-      type="text" 
-      value={name.Username} 
-      onChange={(e)=>setName({...name,Username:e.target.value})}
-      placeholder='username'
-      />
+      <h2>Stopwatch</h2>
+      <div style={{fontSize:"20px"}}>
+        <strong>Time: </strong>
+        {formatTime(seconds)}
       </div>
-      <div
-      style={{
-        display:"flex",
-        gap:"5px"
-      }}
-      >
-      <label htmlFor="password">Password:</label>
-      <input placeholder='password' required type="password" value={name.Password} onChange={(e)=>setName({...name,Password:e.target.value})}/>
+      <div style={{display:"flex",gap:"10px"}}>
+        <button onClick={hanldeStartStop}>
+          {isRunning?"Stop":"Start"}
+        </button>
+        <button onClick={handleReset}>Reset</button>
       </div>
-      <button type="submit">Submit</button>
-    </form>
     </div>
   )
 }
