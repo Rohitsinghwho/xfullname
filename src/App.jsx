@@ -2,14 +2,22 @@ import React, { useState } from 'react'
 
 const App = () => {
   const [name,setName]=useState({
-    firstName:"",
-    lastName:""
+    Username:"",
+    Password:""
   });
-  const [showName,setShowName]=useState(false)
+  const [CorrectInfo,setCorrectInfo]=useState(null);
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    setShowName(!showName)
+    if(name.Username&&name.Password){
+      if(name.Username==="username"&&name.Password==="password"){
+        setCorrectInfo(true);
+      }else{
+        setCorrectInfo(false);
+      }
+    }
+    setName({Username:"",Password:""})
+
   }
   return (
     <div
@@ -20,7 +28,10 @@ const App = () => {
 
     }}
     >
-    <h2>Full Name Display</h2>
+
+    <h2>Login Page</h2>
+      {CorrectInfo===true&&<p>Welcome, user!</p>}
+      {CorrectInfo===false&&<p>Invalid username or password</p>}
     <form onSubmit={handleSubmit}>
       <div
       style={{
@@ -28,8 +39,15 @@ const App = () => {
         gap:"5px",
       }}
       >
-      <label htmlFor="firstName">First Name:</label>
-      <input required type="text" value={name.firstName} onChange={(e)=>setName({...name,firstName:e.target.value})}/>
+    
+      <label htmlFor="firstName">Username:</label>
+      <input 
+      required 
+      type="text" 
+      value={name.Username} 
+      onChange={(e)=>setName({...name,Username:e.target.value})}
+      placeholder='username'
+      />
       </div>
       <div
       style={{
@@ -37,17 +55,11 @@ const App = () => {
         gap:"5px"
       }}
       >
-      <label htmlFor="lastName">Last Name:</label>
-      <input required type="text" value={name.lastName} onChange={(e)=>setName({...name,lastName:e.target.value})}/>
+      <label htmlFor="lastName">Password:</label>
+      <input placeholder='password' required type="text" value={name.Password} onChange={(e)=>setName({...name,Password:e.target.value})}/>
       </div>
       <button type="submit">Submit</button>
     </form>
-
-    {
-      showName&&
-      <span>Full Name: {name.firstName} {name.lastName}</span>
-    }
-
     </div>
   )
 }
