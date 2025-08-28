@@ -10,7 +10,7 @@ const App = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(name.Username&&name.Password){
-      if(name.Username==="username"&&name.Password==="password"){
+      if(name.Username==="user"&&name.Password==="password"){
         setCorrectInfo(true);
       }else{
         setCorrectInfo(false);
@@ -40,7 +40,7 @@ const App = () => {
       }}
       >
     
-      <label htmlFor="username">Username:</label>
+      <label htmlFor="user">Username:</label>
       <input 
       required 
       type="text" 
